@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ethan Rong</title>
+<meta name="description" content="Ethan Rong. Thinking about something. AI, Cognitive Science, Information Science.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='26' cy='32' r='18' fill='none' stroke='%231f2328' stroke-width='3'/%3E%3Crect x='30' y='18' width='26' height='28' fill='%233b5bdb'/%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #fbfbfa; --ink: #1f2328; --muted: #6e7781; --faint: #d0d7de; --accent: #3b5bdb; --dot: 31, 35, 40;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0d1117; --ink: #e6edf3; --muted: #8b949e; --faint: #30363d; --accent: #748ffc; --dot: 230, 237, 243; }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); }
+body { min-height: 100vh; overflow-x: hidden; }
+canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; }
+main { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; padding: 14vh 24px 10vh; pointer-events: none; }
+main a { pointer-events: auto; }
+
+.hero { display: flex; align-items: center; gap: 48px; }
+.mark { flex: none; width: 220px; height: 220px; }
+.mark .line { fill: none; stroke: var(--ink); stroke-width: 1.6; }
+.mark .fill { fill: var(--accent); }
+.rule { flex: none; width: 1px; align-self: stretch; background: var(--faint); }
+.name { margin: 0 0 18px; font-size: 13px; letter-spacing: .25em; color: var(--muted); }
+h1 {
+  margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 6.4vw, 68px); line-height: 1.05;
+  background: linear-gradient(90deg, var(--ink) 0 55%, color-mix(in srgb, var(--muted) 40%, transparent));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.fields { margin: 18px 0 0; font-size: 14px; letter-spacing: .02em; color: var(--muted); }
+
+.work { margin-top: 16vh; border-top: 1px solid var(--faint); }
+.work a {
+  display: grid; grid-template-columns: 1fr auto 24px; align-items: baseline; gap: 16px; padding: 22px 4px;
+  border-bottom: 1px solid var(--faint); color: inherit; text-decoration: none; transition: color .2s, padding .25s;
+}
+.work .title { font-family: var(--serif); font-size: 26px; }
+.work .result { font-size: 14px; color: var(--muted); text-align: right; transition: color .2s; }
+.work .arrow { color: var(--muted); transition: transform .25s, color .2s; }
+.work a:hover, .work a:focus-visible { padding-left: 14px; outline: none; }
+.work a:hover .title, .work a:focus-visible .title, .work a:hover .arrow, .work a:focus-visible .arrow { color: var(--accent); }
+.work a:hover .arrow, .work a:focus-visible .arrow { transform: translate(3px, -3px); }
+
+footer { margin-top: 10vh; display: flex; gap: 24px; font-size: 14px; }
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover, footer a:focus-visible { color: var(--accent); outline: none; }
+
+@media (max-width: 720px) {
+  main { padding: 10vh 16px 8vh; }
+  .hero { flex-direction: column; align-items: flex-start; gap: 28px; }
+  .mark { width: 160px; height: 160px; }
+  .rule { display: none; }
+  .work a { grid-template-columns: 1fr 24px; }
+  .work .result { grid-column: 1; grid-row: 2; text-align: left; }
+  .work .title { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<canvas id="field" aria-hidden="true"></canvas>
+<main>
+  <section class="hero">
+    <svg class="mark" viewBox="0 0 220 220" aria-hidden="true">
+      <defs><clipPath id="mind"><circle cx="90" cy="110" r="80"/></clipPath></defs>
+      <circle class="line" cx="90" cy="110" r="80"/>
+      <g clip-path="url(#mind)"><rect id="sqFill" class="fill" x="112" y="50" width="104" height="120"/></g>
+      <rect id="sqLine" class="line" x="112" y="50" width="104" height="120"/>
+    </svg>
+    <div class="rule"></div>
+    <div>
+      <p class="name">ETHAN RONG</p>
+      <h1>Thinking about something.</h1>
+      <p class="fields">AI · Cognitive Science · Information Science</p>
+    </div>
+  </section>
+
+  <nav class="work" aria-label="Selected work">
+    <a href="https://github.com/ethan-rong/kaggriculture"><span class="title">Kaggriculture</span><span class="result">Kaggle bronze · 702nd of 10,148</span><span class="arrow">↗</span></a>
+    <a href="https://github.com/ethan-rong/dat-parkinsons-challenge"><span class="title">DaT Parkinson's</span><span class="result">65th · private leaderboard</span><span class="arrow">↗</span></a>
+    <a href="https://github.com/ethan-rong/fusion-equilibrium-2026"><span class="title">Fusion Equilibrium</span><span class="result">S 0.949 · 67 s on a CPU</span><span class="arrow">↗</span></a>
+    <a href="https://whosbluffing.com"><span class="title">Who's Bluffing</span><span class="result">a one-minute game</span><span class="arrow">↗</span></a>
+  </nav>
+
+  <footer>
+    <a href="https://github.com/ethan-rong">GitHub</a>
+    <a href="https://www.kaggle.com/rngrng">Kaggle</a>
+  </footer>
+</main>
+
+<script>
+(() => {
+  const canvas = document.getElementById("field");
+  const ctx = canvas.getContext("2d");
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const GAP = 26, RADIUS = 170, PUSH = 26;
+  const target = { x: -9999, y: -9999 }, pos = { x: -9999, y: -9999 };
+  let strength = 0, aim = 0, ripples = [], w = 0, h = 0, dots = [];
+  const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+  function resize() {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    w = innerWidth; h = innerHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    dots = [];
+    for (let y = GAP / 2; y < h + GAP; y += GAP)
+      for (let x = GAP / 2; x < w + GAP; x += GAP) dots.push(x, y);
+    if (still) draw();
+  }
+
+  function draw(now = 0) {
+    pos.x += (target.x - pos.x) * 0.16;
+    pos.y += (target.y - pos.y) * 0.16;
+    strength += (aim - strength) * 0.08;
+    ripples = ripples.filter((r) => now - r.t < 1400);
+    const dot = css("--dot"), accent = css("--accent");
+    ctx.clearRect(0, 0, w, h);
+    if (strength > 0.01) {
+      const glow = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, RADIUS * 1.4);
+      glow.addColorStop(0, accent);
+      glow.addColorStop(1, "transparent");
+      ctx.globalAlpha = 0.09 * strength;
+      ctx.fillStyle = glow;
+      ctx.fillRect(pos.x - RADIUS * 1.4, pos.y - RADIUS * 1.4, RADIUS * 2.8, RADIUS * 2.8);
+      ctx.globalAlpha = 1;
+    }
+    for (let i = 0; i < dots.length; i += 2) {
+      let x = dots[i], y = dots[i + 1], f = 0;
+      const dx = x - pos.x, dy = y - pos.y, d = Math.hypot(dx, dy) || 1;
+      if (d < RADIUS) {
+        f = (1 - d / RADIUS) ** 2 * strength;
+        x += (dx / d) * f * PUSH; y += (dy / d) * f * PUSH;
+      }
+      for (const r of ripples) {
+        const age = (now - r.t) / 1400, front = age * 700;
+        const rx = dots[i] - r.x, ry = dots[i + 1] - r.y, rd = Math.hypot(rx, ry) || 1, band = Math.abs(rd - front);
+        if (band < 40) {
+          const k = (1 - band / 40) * (1 - age);
+          x += (rx / rd) * k * 14; y += (ry / rd) * k * 14; f = Math.max(f, k * 0.8);
+        }
+      }
+      ctx.beginPath();
+      ctx.arc(x, y, 1 + f * 2.6, 0, 6.283);
+      ctx.fillStyle = f > 0.04 ? accent : `rgba(${dot}, 0.2)`;
+      ctx.globalAlpha = f > 0.04 ? 0.25 + f * 0.75 : 1;
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    moveSquare();
+    if (!still) requestAnimationFrame(draw);
+  }
+
+  const sqFill = document.getElementById("sqFill"), sqLine = document.getElementById("sqLine");
+  const mark = document.querySelector(".mark");
+  let shift = 0;
+  function moveSquare() {
+    if (still) return;
+    const box = mark.getBoundingClientRect();
+    const goal = pos.x < -999 ? 0 : Math.max(-70, Math.min(40, (pos.x - (box.left + box.width / 2)) / 8));
+    shift += (goal - shift) * 0.1;
+    const t = `translate(${shift.toFixed(2)} 0)`;
+    sqFill.setAttribute("transform", t); sqLine.setAttribute("transform", t);
+  }
+
+  addEventListener("pointermove", (e) => { target.x = e.clientX; target.y = e.clientY; aim = 1; if (pos.x < -999) { pos.x = target.x; pos.y = target.y; } });
+  addEventListener("pointerdown", (e) => { if (!still) ripples.push({ x: e.clientX, y: e.clientY, t: performance.now() }); });
+  document.addEventListener("pointerleave", () => { aim = 0; });
+  addEventListener("blur", () => { aim = 0; });
+  addEventListener("resize", resize);
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => still && draw());
+  resize();
+  if (!still) requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
